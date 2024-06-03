@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections;
+using System.Security.Cryptography;
 using GameNetcodeStuff;
 using Unity.Netcode;
 using UnityEngine;
@@ -18,10 +20,19 @@ public class Scp966 : EnemyAI
     public int secondAttack;
     public int thirdAttack;
     private int currentDamage;
+    
 
     public float attackCooldown;
     private float attackCooldownBeheader;
     private float? previousNightVisionValue = null;
+    [Header("Audio")] 
+    public AudioClip[] echoes;
+    public AudioClip[] idles;
+    private Coroutine passiveSound;
+    private float waitTimer;
+
+    private bool justStopedMoving = true;
+    //Making sure that TargetPlayerVariable is synchronised
     [NonSerialized]
     private NetworkVariable<NetworkBehaviourReference> _playerNetVar = new();
     public PlayerControllerB Scp966TargetPlayer
@@ -45,15 +56,18 @@ public class Scp966 : EnemyAI
 
     [NonSerialized] public bool isVisibleForLocalPlayer;
     private PlayerControllerB localPlayer;
-
+    
     public override void Start()
     {
         base.Start();
         localPlayer = RoundManager.Instance.playersManager.localPlayerController;
         StartSearch(transform.position);
         attackCooldownBeheader = attackCooldown;
+        StartCoroutine(IdlePlay());
     }
-
+    /// <summary>
+    /// No access to UpdateMethod, so we will use the LateUpdate for a similar result
+    /// </summary>
     private void LateUpdate()
     {
         CheckIfLocalPlayerHasNightVision();
@@ -67,7 +81,9 @@ public class Scp966 : EnemyAI
         }
         attackCooldown -= Time.deltaTime;
     }
-
+    /// <summary>
+    /// Called by base class, decides current behaviour of AI
+    /// </summary>
     public override void DoAIInterval()
     {
         base.DoAIInterval();
@@ -100,10 +116,22 @@ public class Scp966 : EnemyAI
                 SetDestinationToPosition(Scp966TargetPlayer.transform.position);
                 if (Vector3.Distance(transform.position, Scp966TargetPlayer.transform.position) <agent.stoppingDistance)
                 {
+                    
                     DoAnimationClientRpc("Walking",false);
+                    if (justStopedMoving)
+                    {
+                        switch (RandomNumberGenerator.GetInt32(3))
+                        {
+                            
+                        }
+                    }
+
+                    justStopedMoving = false;
+
                 }
                 else
                 {
+                    justStopedMoving = true;
                     DoAnimationClientRpc("Walking",true);
                 }
                 if (Scp966TargetPlayer.carryWeight <= 1.5f)
@@ -120,6 +148,7 @@ public class Scp966 : EnemyAI
                 agent.stoppingDistance = 0f;
                 agent.speed = 7f;
                 agent.autoBraking = false;
+                DoAnimationClientRpc("Walking",true);
                 if (!Scp966TargetPlayer.isInsideFactory || 
                     Scp966TargetPlayer.isPlayerDead || 
                     Vector3.Distance(
@@ -132,15 +161,15 @@ public class Scp966 : EnemyAI
                     break;
                 }
                 SetDestinationToPosition(Scp966TargetPlayer.transform.position);
-                DoAnimationClientRpc("Walking",true);
+                
 
                 //If reached player and attack cooldown is 0, then :
                 if (
                     Vector3.Distance(
                         transform.position, 
                         Scp966TargetPlayer.transform.position
-                        ) < agent.stoppingDistance && 
-                    attackCooldown==0
+                        ) < 1f && 
+                    attackCooldown<=0.3f
                     )
                 {
                     creatureAnimator.SetTrigger("Attack");
@@ -177,7 +206,9 @@ public class Scp966 : EnemyAI
     private Transform barTransform;
 
 
-
+    /// <summary>
+    /// Enable the mesh of SCP966
+    /// </summary>
     private void EnableMesh()
     {
         isVisibleForLocalPlayer = true;
@@ -187,7 +218,9 @@ public class Scp966 : EnemyAI
         }
         mesh.enabled = true;
     }
-
+    /// <summary>
+    /// Disable the mesh of SCP966
+    /// </summary>
     private void DisableMesh()
     {
         isVisibleForLocalPlayer = false;
@@ -251,7 +284,13 @@ public class Scp966 : EnemyAI
             DisableMesh();
         }
     }
-    
+    /// <summary>
+    /// When he gets hit
+    /// </summary>
+    /// <param name="force"></param>
+    /// <param name="playerWhoHit"></param>
+    /// <param name="playHitSFX"></param>
+    /// <param name="hitID"></param>
     public override void HitEnemy(int force = 1, PlayerControllerB? playerWhoHit = null, bool playHitSFX = false, int hitID = -1) {
         base.HitEnemy(force, playerWhoHit, playHitSFX, hitID);
         if(isEnemyDead){
@@ -266,12 +305,39 @@ public class Scp966 : EnemyAI
                 
                 //StopCoroutine(SwingAttack());
                 // We need to stop our search coroutine, because the game does not do that by default.
-                //StopCoroutine(searchCoroutine);
+                StopCoroutine(searchCoroutine);
+                StopCoroutine(passiveSound);
+                Scp966TargetPlayer = null;
                 KillEnemyOnOwnerClient();
             }
         }
     }
-    
+    /// <summary>
+    /// This little cute function will play an idle sound ever certain amount of time
+    /// </summary>
+    /// <returns></returns>
+    IEnumerator IdlePlay()
+    {
+        while (!isEnemyDead)
+        {
+            yield return new WaitForSeconds(waitTimer);
+            PlayOnShotIdleClientRpc(RandomNumberGenerator.GetInt32(idles.Length));
+            waitTimer = 5 + RandomNumberGenerator.GetInt32(20);
+        }
+    }
+
+    /// <summary>
+    /// Play the idles on all playes
+    /// </summary>
+    /// <param name="x">The array number of the  played Idle</param>
+    [ClientRpc]
+    public void PlayOnShotIdleClientRpc(int x)
+    {
+        creatureVoice.PlayOneShot(idles[x]);
+    }
+    /// <summary>
+    /// Called by animation and resolve damage on player.
+    /// </summary>
     [ClientRpc]
     public void SwingAttackHitClientRpc() {
         int playerLayer = 1 << 3; // This can be found from the game's Asset Ripper output in Unity
@@ -281,18 +347,35 @@ public class Scp966 : EnemyAI
                 PlayerControllerB playerControllerB = MeetsStandardPlayerCollisionConditions(player);
                 if (playerControllerB != null)
                 {
-                    playerControllerB.DamagePlayer(40);
+                    creatureSFX.Play();
+                    playerControllerB.DamagePlayer(currentDamage);
                 }
             }
         }
-
         attackCooldown = attackCooldownBeheader;
     }
-    
+    /// <summary>
+    /// Called by us
+    /// </summary>
+    [ClientRpc]
+    public void PlayScreamClientRpc()
+    {
+        
+        
+    }
+    /// <summary>
+    /// Called for Triggers
+    /// </summary>
+    /// <param name="animationName"></param>
     [ClientRpc]
     public void DoAnimationClientRpc(string animationName) {
         creatureAnimator.SetTrigger(animationName);
     }
+    /// <summary>
+    /// Called for booleans
+    /// </summary>
+    /// <param name="animationName"></param>
+    /// <param name="value"></param>
     [ClientRpc]
     public void DoAnimationClientRpc(string animationName, bool value) {
         creatureAnimator.SetBool(animationName,value);
@@ -302,6 +385,4 @@ public class Scp966 : EnemyAI
     {
         Debug.Log($"[SCP966SleepKiller][SCP966 - AI CLASS][{(pleaseReport? "This Error should be reported with the context of the error":"NO NEED REPORT")}] :: " + x);
     }
-
-
 }
