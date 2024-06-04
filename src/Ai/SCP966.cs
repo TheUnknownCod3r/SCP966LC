@@ -8,8 +8,6 @@ using UnityEngine;
 namespace SCP966.Ai;
 public class Scp966 : EnemyAI
 {
-    //TODO make him do damage by setting Current damage on Client Rpc
-    //TODO make him lower stamina by calling a lowering of stamina on all clients and for a distinctionto be made
     public SkinnedMeshRenderer mesh;
     public Transform lookAt;
     public Transform defaultLookAt;

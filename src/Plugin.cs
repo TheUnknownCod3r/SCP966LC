@@ -4,21 +4,16 @@ using BepInEx;
 using LethalBestiary.Modules;
 using BepInEx.Logging;
 using System.IO;
-using SCP966.Configuration;
 
 namespace SCP966 {
     [BepInPlugin(PluginInfo.PLUGIN_GUID, PluginInfo.PLUGIN_NAME, PluginInfo.PLUGIN_VERSION)]
     [BepInDependency(LethalBestiary.Plugin.ModGUID)] 
     public class Plugin : BaseUnityPlugin {
         internal static new ManualLogSource Logger = null!;
-        internal static PluginConfig BoundConfig { get; private set; } = null!;
         public static AssetBundle? ModAssets;
 
         private void Awake() {
             Logger = base.Logger;
-
-            // If you don't want your mod to use a configuration file, you can remove this line, Configuration.cs, and other references.
-            BoundConfig = new PluginConfig(base.Config);
 
             // This should be ran before Network Prefabs are registered.
             InitializeNetworkBehaviours();
@@ -65,7 +60,7 @@ namespace SCP966 {
             NetworkPrefabs.RegisterNetworkPrefab(SCP966.enemyPrefab);
 
             // For different ways of registering your enemy, see https://github.com/EvaisaDev/LethalLib/blob/main/LethalLib/Modules/Enemies.cs
-            Enemies.RegisterEnemy(SCP966, BoundConfig.SpawnWeight.Value, Levels.LevelTypes.All, SCP966TN, SCP966TK);
+            Enemies.RegisterEnemy(SCP966, 30, Levels.LevelTypes.All, SCP966TN, SCP966TK);
             // For using our rarity tables, we can use the following:
             // Enemies.RegisterEnemy(SCP966, ExampleEnemyLevelRarities, ExampleEnemyCustomLevelRarities, ExampleEnemyTN, ExampleEnemyTK);
             

@@ -89,7 +89,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="src\Plugin\" />
+    <Compile Remove="src\Configuration.cs" />
+    <Compile Remove="src\ExampleEnemyAI.cs" />
   </ItemGroup>
 
   <!-- Allows us to use Rpc methods. See https://github.com/EvaisaDev/UnityNetcodePatcher -->
