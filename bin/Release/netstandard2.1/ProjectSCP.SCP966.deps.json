@@ -7,7 +7,7 @@
   "targets": {
     ".NETStandard,Version=v2.1": {},
     ".NETStandard,Version=v2.1/": {
-      "ProjectSCP.SCP966/1.0.1": {
+      "ProjectSCP.SCP966/1.0.0": {
         "dependencies": {
           "BepInEx.Analyzers": "1.0.8",
           "BepInEx.Core": "5.4.21",
@@ -579,7 +579,7 @@
     }
   },
   "libraries": {
-    "ProjectSCP.SCP966/1.0.1": {
+    "ProjectSCP.SCP966/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

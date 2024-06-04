@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("ProjectSCP.SCP966")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+caeaf3765230b55250054e700c5e68f48a1dfbee")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+410f969733a238894993246b89a7a5320d44988e")]
 [assembly: System.Reflection.AssemblyProductAttribute("SCP966")]
 [assembly: System.Reflection.AssemblyTitleAttribute("ProjectSCP.SCP966")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
