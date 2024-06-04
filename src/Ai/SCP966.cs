@@ -8,8 +8,8 @@ using UnityEngine;
 namespace SCP966.Ai;
 public class Scp966 : EnemyAI
 {
-    //TODO Make him look staight at the player! He looks at the body
-    //TODO make him start moving again
+    //TODO make him do damage by setting Current damage on Client Rpc
+    //TODO make him lower stamina by calling a lowering of stamina on all clients and for a distinctionto be made
     public SkinnedMeshRenderer mesh;
     public Transform lookAt;
     public Transform defaultLookAt;
@@ -32,6 +32,8 @@ public class Scp966 : EnemyAI
     private float waitTimer;
 
     private bool justStopedMoving = true;
+
+    private bool weightModifiedLocal = false;
     //Making sure that TargetPlayerVariable is synchronised
     [NonSerialized]
     private NetworkVariable<NetworkBehaviourReference> _playerNetVar = new();
@@ -63,7 +65,10 @@ public class Scp966 : EnemyAI
         localPlayer = RoundManager.Instance.playersManager.localPlayerController;
         StartSearch(transform.position);
         attackCooldownBeheader = attackCooldown;
-        StartCoroutine(IdlePlay());
+        if (IsHost)
+        {
+            passiveSound = StartCoroutine(IdlePlay());
+        }
     }
     /// <summary>
     /// No access to UpdateMethod, so we will use the LateUpdate for a similar result
@@ -92,6 +97,7 @@ public class Scp966 : EnemyAI
                 DoAnimationClientRpc("Walking",true);
                 agent.autoBraking = true;
                 agent.speed = 5f;
+                agent.stoppingDistance = 0f;
                 if (CheckLineOfSightForPlayer(45f,60, 3)){
                     StopSearch(currentSearch);
                     Scp966TargetPlayer = CheckLineOfSightForPlayer();
@@ -110,6 +116,8 @@ public class Scp966 : EnemyAI
                 {
                     StartSearch(transform.position);
                     SwitchToBehaviourClientRpc((int)State.Searching);
+                    SetWeightPlayerClientRpc(Scp966TargetPlayer.playerClientId, 0f);
+                    //Scp966TargetPlayer.carryWeight -= Mathf.Clamp(0.5f - 1f, 0.0f, 10f);
                     Scp966TargetPlayer = null;
                     break;
                 }
@@ -122,10 +130,24 @@ public class Scp966 : EnemyAI
                     {
                         switch (RandomNumberGenerator.GetInt32(3))
                         {
+                            case 0:
+                                //NOTHING
+                                MonsterLogger("WE ARE doing nothing");
+                                break;
+                            case 1:
+                                //Growl
+                                MonsterLogger("WE ARE SCREAMING");
+                                DoAnimationClientRpc("Scream");
+                                PlayScreamClientRpc(RandomNumberGenerator.GetInt32(echoes.Length));
+                                break;
+                            case 2:
+                                //IDLE AN
+                                MonsterLogger("Staring");
+                                DoAnimationClientRpc("Stare");
+                                break;
                             
                         }
                     }
-
                     justStopedMoving = false;
 
                 }
@@ -134,19 +156,18 @@ public class Scp966 : EnemyAI
                     justStopedMoving = true;
                     DoAnimationClientRpc("Walking",true);
                 }
-                if (Scp966TargetPlayer.carryWeight <= 1.5f)
-                {
-                    Scp966TargetPlayer.carryWeight = 1.5f;
-                        
-                }
-                if (Scp966TargetPlayer.sprintMeter <= 0.3f)
+                SetWeightPlayerClientRpc(Scp966TargetPlayer.playerClientId,1f);
+                
+                CheckIfTargetHasLowStamClientRpc(Scp966TargetPlayer.playerClientId);
+                /*if (Scp966TargetPlayer.sprintMeter <= 0.3f)
                 {
                     SwitchToBehaviourClientRpc((int)State.Chasing);
-                }
+                }*/
                 break;
             case (int)State.Chasing:
                 agent.stoppingDistance = 0f;
-                agent.speed = 7f;
+                agent.speed = 5f;
+                agent.acceleration = 12f;
                 agent.autoBraking = false;
                 DoAnimationClientRpc("Walking",true);
                 if (!Scp966TargetPlayer.isInsideFactory || 
@@ -157,6 +178,8 @@ public class Scp966 : EnemyAI
                 {
                     StartSearch(transform.position);
                     SwitchToBehaviourClientRpc((int)State.Searching);
+                    SetWeightPlayerClientRpc(Scp966TargetPlayer.playerClientId,0f);
+                        
                     Scp966TargetPlayer = null;
                     break;
                 }
@@ -172,20 +195,19 @@ public class Scp966 : EnemyAI
                     attackCooldown<=0.3f
                     )
                 {
-                    creatureAnimator.SetTrigger("Attack");
+                    DoAnimationClientRpc("Attack");
                     switch (creatureAnimator.GetInteger("AttackNumber"))
                     {
                         case 0:
-                            currentDamage = firstAttack;
-                            creatureAnimator.SetInteger("AttackNumber", 1);
+                            SetCurrentDamageClientRpc(firstAttack,1);
                             break;
                         case 1:
-                            currentDamage = secondAttack;
-                            creatureAnimator.SetInteger("AttackNumber", 2);
+                            
+                            SetCurrentDamageClientRpc(secondAttack,2);
                             break;
                         case 2:
-                            currentDamage = thirdAttack; ;
-                            creatureAnimator.SetInteger("AttackNumber", 0);
+                            SetCurrentDamageClientRpc(thirdAttack,0);
+
                             break;
                         default:
                             MonsterLogger("We are outside of possible attack array!", true);
@@ -293,6 +315,11 @@ public class Scp966 : EnemyAI
     /// <param name="hitID"></param>
     public override void HitEnemy(int force = 1, PlayerControllerB? playerWhoHit = null, bool playHitSFX = false, int hitID = -1) {
         base.HitEnemy(force, playerWhoHit, playHitSFX, hitID);
+        if (playerWhoHit != null)
+        {
+            Scp966TargetPlayer = playerWhoHit;
+            SwitchToBehaviourClientRpc((int)State.Chasing);
+        }
         if(isEnemyDead){
             return;
         }
@@ -305,10 +332,12 @@ public class Scp966 : EnemyAI
                 
                 //StopCoroutine(SwingAttack());
                 // We need to stop our search coroutine, because the game does not do that by default.
-                StopCoroutine(searchCoroutine);
-                StopCoroutine(passiveSound);
-                Scp966TargetPlayer = null;
+                if (searchCoroutine != null)
+                {
+                    StopCoroutine(searchCoroutine);
+                }
                 KillEnemyOnOwnerClient();
+                StopCoroutine(passiveSound);
             }
         }
     }
@@ -358,9 +387,9 @@ public class Scp966 : EnemyAI
     /// Called by us
     /// </summary>
     [ClientRpc]
-    public void PlayScreamClientRpc()
+    public void PlayScreamClientRpc(int x)
     {
-        
+        creatureVoice.PlayOneShot(echoes[x]);
         
     }
     /// <summary>
@@ -379,6 +408,67 @@ public class Scp966 : EnemyAI
     [ClientRpc]
     public void DoAnimationClientRpc(string animationName, bool value) {
         creatureAnimator.SetBool(animationName,value);
+    }
+    /// <summary>
+    /// Will be called to start each attack animation
+    /// </summary>
+    /// <param name="x"> The damage that should be dealt</param>
+    /// <param name="animation">The animation number from 0 to 2</param>
+    [ClientRpc]
+    public void SetCurrentDamageClientRpc(int x, int animation)
+    {
+        currentDamage = x;
+        creatureAnimator.SetInteger("AttackNumber", animation);
+        
+    }
+    /// <summary>
+    /// Change the weight for a specific client. Will be called on all clients and sorted out later
+    /// </summary>
+    /// <param name="clientId">The client Id we want to modify the weight</param>
+    /// <param name="weight">The new Weight</param>
+    [ClientRpc]
+    public void SetWeightPlayerClientRpc(ulong clientId, float weight)
+    {
+        if (RoundManager.Instance.playersManager.localPlayerController.playerClientId == clientId)
+        {
+            if (weight == 0f)
+            {
+                if (weightModifiedLocal)
+                    RoundManager.Instance.playersManager.localPlayerController.carryWeight -= 0.5f;
+                weightModifiedLocal = false;
+            }
+            else
+            {
+                if(!weightModifiedLocal)
+                    RoundManager.Instance.playersManager.localPlayerController.carryWeight += 0.5f;
+                
+                weightModifiedLocal = true;
+            }
+            
+        }
+    }
+    /// <summary>
+    /// Send to the client to check if their stamina is low! They will respond with SendIfTargetHasLowStamserverRpc if true and they are the target player
+    /// </summary>
+    /// <param name="clientId">The client id of the target player</param>
+    [ClientRpc]
+    public void CheckIfTargetHasLowStamClientRpc(ulong clientId)
+    {
+        if (RoundManager.Instance.playersManager.localPlayerController == Scp966TargetPlayer)
+        {
+            if (Scp966TargetPlayer.sprintMeter <= 0.3f)
+            {
+                SendIfTargetHasLowStamServerRpc();
+            }
+        }
+    }
+    /// <summary>
+    /// Called by client to tell the server that They are low stam and should change to Chasing
+    /// </summary>
+    [ServerRpc(RequireOwnership = false)]
+    public void SendIfTargetHasLowStamServerRpc()
+    {
+        SwitchToBehaviourClientRpc((int)State.Chasing);
     }
 
     private void MonsterLogger(String x, bool pleaseReport = false)

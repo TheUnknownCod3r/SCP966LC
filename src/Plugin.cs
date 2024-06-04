@@ -35,9 +35,9 @@ namespace SCP966 {
             }
 
             // We load our assets from our asset bundle. Remember to rename them both here and in our Unity project.
-            var ExampleEnemy = ModAssets.LoadAsset<EnemyType>("SCP966Enemy");
-            var ExampleEnemyTN = ModAssets.LoadAsset<TerminalNode>("SCP966TN");
-            var ExampleEnemyTK = ModAssets.LoadAsset<TerminalKeyword>("SCP966TK");
+            var SCP966 = ModAssets.LoadAsset<EnemyType>("SCP966Enemy");
+            var SCP966TN = ModAssets.LoadAsset<TerminalNode>("SCP966TN");
+            var SCP966TK = ModAssets.LoadAsset<TerminalKeyword>("SCP966TK");
 
             // Optionally, we can list which levels we want to add our enemy to, while also specifying the spawn weight for each.
             /*
@@ -62,10 +62,10 @@ namespace SCP966 {
 
             // Network Prefabs need to be registered. See https://docs-multiplayer.unity3d.com/netcode/current/basics/object-spawning/
             // LethalLib registers prefabs on GameNetworkManager.Start.
-            NetworkPrefabs.RegisterNetworkPrefab(ExampleEnemy.enemyPrefab);
+            NetworkPrefabs.RegisterNetworkPrefab(SCP966.enemyPrefab);
 
             // For different ways of registering your enemy, see https://github.com/EvaisaDev/LethalLib/blob/main/LethalLib/Modules/Enemies.cs
-            Enemies.RegisterEnemy(ExampleEnemy, BoundConfig.SpawnWeight.Value, Levels.LevelTypes.All, ExampleEnemyTN, ExampleEnemyTK);
+            Enemies.RegisterEnemy(SCP966, BoundConfig.SpawnWeight.Value, Levels.LevelTypes.All, SCP966TN, SCP966TK);
             // For using our rarity tables, we can use the following:
             // Enemies.RegisterEnemy(SCP966, ExampleEnemyLevelRarities, ExampleEnemyCustomLevelRarities, ExampleEnemyTN, ExampleEnemyTK);
             

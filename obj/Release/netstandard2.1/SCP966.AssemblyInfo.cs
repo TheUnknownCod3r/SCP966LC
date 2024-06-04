@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("TheWeavers.SCP966")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Release")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.1.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.1+6c4010ce3afba475cc73aee2e253764a109a7012")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.1+9fcdaa48a58fde90f37014748475a09aba5116b5")]
 [assembly: System.Reflection.AssemblyProductAttribute("SCP966")]
 [assembly: System.Reflection.AssemblyTitleAttribute("TheWeavers.SCP966")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.1.0")]
