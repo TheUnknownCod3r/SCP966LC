@@ -1,4 +1,5 @@
-﻿using System.Reflection;
+﻿using System.Collections.Generic;
+using System.Reflection;
 using UnityEngine;
 using BepInEx;
 using LethalBestiary.Modules;
@@ -35,32 +36,31 @@ namespace SCP966 {
             var SCP966TK = ModAssets.LoadAsset<TerminalKeyword>("SCP966TK");
 
             // Optionally, we can list which levels we want to add our enemy to, while also specifying the spawn weight for each.
-            /*
-            var ExampleEnemyLevelRarities = new Dictionary<Levels.LevelTypes, int> {
-                {Levels.LevelTypes.ExperimentationLevel, 10},
-                {Levels.LevelTypes.AssuranceLevel, 40},
+
+            var SCP966CustomSpawn = new Dictionary<Levels.LevelTypes, int> {
+                {Levels.LevelTypes.ExperimentationLevel, 40},
+                /*{Levels.LevelTypes.AssuranceLevel, 20},
                 {Levels.LevelTypes.VowLevel, 20},
-                {Levels.LevelTypes.OffenseLevel, 30},
+                {Levels.LevelTypes.OffenseLevel, 20},
                 {Levels.LevelTypes.MarchLevel, 20},
-                {Levels.LevelTypes.RendLevel, 50},
-                {Levels.LevelTypes.DineLevel, 25},
-                // {Levels.LevelTypes.TitanLevel, 33},
-                // {Levels.LevelTypes.All, 30},     // Affects unset values, with lowest priority (gets overridden by Levels.LevelTypes.Modded)
-                {Levels.LevelTypes.Modded, 60},     // Affects values for modded moons that weren't specified
+                {Levels.LevelTypes.RendLevel, 20},
+                {Levels.LevelTypes.DineLevel, 20},
+                {Levels.LevelTypes.TitanLevel, 30},*/
+                {Levels.LevelTypes.All, 20},     // Affects unset values, with lowest priority (gets overridden by Levels.LevelTypes.Modded)
+                {Levels.LevelTypes.Modded, 20},     // Affects values for modded moons that weren't specified
             };
-            // We can also specify custom level rarities
-            var ExampleEnemyCustomLevelRarities = new Dictionary<string, int> {
-                {"EGyptLevel", 50},
-                {"46 Infernis", 69},    // Either LLL or LE(C) name can be used, LethalLib will handle both
+
+            var Scp966CustomLevelRarities = new Dictionary<string, int> {
+
             };
-            */
+            
 
             // Network Prefabs need to be registered. See https://docs-multiplayer.unity3d.com/netcode/current/basics/object-spawning/
             // LethalLib registers prefabs on GameNetworkManager.Start.
             NetworkPrefabs.RegisterNetworkPrefab(SCP966.enemyPrefab);
 
             // For different ways of registering your enemy, see https://github.com/EvaisaDev/LethalLib/blob/main/LethalLib/Modules/Enemies.cs
-            Enemies.RegisterEnemy(SCP966, 30, Levels.LevelTypes.All, SCP966TN, SCP966TK);
+            Enemies.RegisterEnemy(SCP966, SCP966CustomSpawn, Scp966CustomLevelRarities, SCP966TN, SCP966TK);
             // For using our rarity tables, we can use the following:
             // Enemies.RegisterEnemy(SCP966, ExampleEnemyLevelRarities, ExampleEnemyCustomLevelRarities, ExampleEnemyTN, ExampleEnemyTK);
             

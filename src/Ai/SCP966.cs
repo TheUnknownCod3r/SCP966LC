@@ -32,6 +32,8 @@ public class Scp966 : EnemyAI
     private bool justStopedMoving = true;
 
     private bool weightModifiedLocal = false;
+
+    private Coroutine killCoroutine;
     //Making sure that TargetPlayerVariable is synchronised
     [NonSerialized]
     private NetworkVariable<NetworkBehaviourReference> _playerNetVar = new();
@@ -112,6 +114,7 @@ public class Scp966 : EnemyAI
                         transform.position, 
                         Scp966TargetPlayer.transform.position) > 25)
                 {
+                    agent.ResetPath();
                     StartSearch(transform.position);
                     SwitchToBehaviourClientRpc((int)State.Searching);
                     SetWeightPlayerClientRpc(Scp966TargetPlayer.playerClientId, 0f);
@@ -154,9 +157,15 @@ public class Scp966 : EnemyAI
                     justStopedMoving = true;
                     DoAnimationClientRpc("Walking",true);
                 }
-                SetWeightPlayerClientRpc(Scp966TargetPlayer.playerClientId,1f);
+
+                if (!Scp966TargetPlayer.isPlayerDead)
+                {
+                    SetWeightPlayerClientRpc(Scp966TargetPlayer.playerClientId,1f);
                 
-                CheckIfTargetHasLowStamClientRpc(Scp966TargetPlayer.playerClientId);
+                    CheckIfTargetHasLowStamClientRpc(Scp966TargetPlayer.playerClientId);
+                }
+
+                
                 /*if (Scp966TargetPlayer.sprintMeter <= 0.3f)
                 {
                     SwitchToBehaviourClientRpc((int)State.Chasing);
@@ -174,6 +183,7 @@ public class Scp966 : EnemyAI
                         transform.position, 
                         Scp966TargetPlayer.transform.position) > 25)
                 {
+                    agent.ResetPath();
                     StartSearch(transform.position);
                     SwitchToBehaviourClientRpc((int)State.Searching);
                     SetWeightPlayerClientRpc(Scp966TargetPlayer.playerClientId,0f);
@@ -211,6 +221,12 @@ public class Scp966 : EnemyAI
                             MonsterLogger("We are outside of possible attack array!", true);
                             break;
                     }
+                }
+                if (!Scp966TargetPlayer.isPlayerDead)
+                {
+                    SetWeightPlayerClientRpc(Scp966TargetPlayer.playerClientId,1f);
+                
+                    CheckIfTargetHasLowStamClientRpc(Scp966TargetPlayer.playerClientId);
                 }
                 break;
                     
@@ -313,11 +329,8 @@ public class Scp966 : EnemyAI
     /// <param name="hitID"></param>
     public override void HitEnemy(int force = 1, PlayerControllerB? playerWhoHit = null, bool playHitSFX = false, int hitID = -1) {
         base.HitEnemy(force, playerWhoHit, playHitSFX, hitID);
-        if (playerWhoHit != null)
-        {
-            Scp966TargetPlayer = playerWhoHit;
-            SwitchToBehaviourClientRpc((int)State.Chasing);
-        }
+        SendIfTargetHasLowStamServerRpc();
+        
         if(isEnemyDead){
             return;
         }
@@ -336,9 +349,11 @@ public class Scp966 : EnemyAI
                 }
                 KillEnemyOnOwnerClient();
                 StopCoroutine(passiveSound);
+                SetWeightPlayerClientRpc(Scp966TargetPlayer.playerClientId, 0f);
             }
         }
     }
+
     /// <summary>
     /// This little cute function will play an idle sound ever certain amount of time
     /// </summary>
@@ -375,11 +390,24 @@ public class Scp966 : EnemyAI
                 if (playerControllerB != null)
                 {
                     creatureSFX.Play();
-                    playerControllerB.DamagePlayer(currentDamage);
+                    MonsterLogger(playerControllerB.health.ToString());
+                    killCoroutine= StartCoroutine(killPlayer(playerControllerB));
                 }
             }
         }
         attackCooldown = attackCooldownBeheader;
+    }
+
+    IEnumerator killPlayer(PlayerControllerB playerControllerB)
+    {
+        yield return new WaitForSeconds(0.3f);
+        StopCoroutine(killCoroutine);
+        playerControllerB.DamagePlayer(currentDamage);
+        if (playerControllerB.health <= currentDamage)
+        {
+            SetWeightPlayerClientRpc(Scp966TargetPlayer.playerClientId,0f);
+        }
+        
     }
     /// <summary>
     /// Called by us
@@ -432,17 +460,28 @@ public class Scp966 : EnemyAI
             if (weight == 0f)
             {
                 if (weightModifiedLocal)
-                    RoundManager.Instance.playersManager.localPlayerController.carryWeight -= 0.5f;
+                {
+                    PlayerControllerB player = RoundManager.Instance.playersManager.localPlayerController;
+                    float totalWeight = 0;
+                    foreach (var item in player.ItemSlots)
+                    {
+                        if (item == null) continue;
+                        if (item.gameObject.GetComponent<GrabbableObject>() == null) continue;
+                        totalWeight+= item.gameObject.GetComponent<GrabbableObject>().itemProperties.weight;
+                        
+                    }
+
+                    player.carryWeight = 1 + totalWeight;
+                }
                 weightModifiedLocal = false;
             }
-            else
+            else if(weight ==1f)
             {
                 if(!weightModifiedLocal)
                     RoundManager.Instance.playersManager.localPlayerController.carryWeight += 0.5f;
                 
                 weightModifiedLocal = true;
             }
-            
         }
     }
     /// <summary>
@@ -460,6 +499,8 @@ public class Scp966 : EnemyAI
             }
         }
     }
+    
+    
     /// <summary>
     /// Called by client to tell the server that They are low stam and should change to Chasing
     /// </summary>
