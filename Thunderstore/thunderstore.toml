@@ -27,6 +27,13 @@ source = "../../SCP966/AssetBundles/StandaloneWindows/scp966modassets"
 target = "plugins/Scp966/"
 
 [[build.copy]]
+source = "./PictureThunderstorePage/Chilling.png"
+target = "PictureThunderstorePage"
+[[build.copy]]
+source = "./PictureThunderstorePage/CreepyWalk.png"
+target = "PictureThunderstorePage"
+
+[[build.copy]]
 source = "./CHANGELOG.md"
 target = "/"
 

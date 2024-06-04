@@ -14,21 +14,10 @@ It will follow the player around, using a shrike every 10 seconds that will drai
 ### Chasing Phase
 When in the Chasing Phase, it will hunt down the player until they are dead or leave the building. Then, it will go back into the Roaming Phase.
 </details>
-
 ### Credits :
-<details>
-    <summary>
         JoeJoe
-    </summary>
-    - Project idea
-</details>
-<details>
-    <summary>
-        Xilef992
-    </summary>
-    - Development
-</details>
-<details>
+        Xilef992 ( TheWeavers)
+
 <summary>
 License
 </summary>
