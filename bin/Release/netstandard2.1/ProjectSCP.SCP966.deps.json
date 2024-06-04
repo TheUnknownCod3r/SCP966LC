@@ -7,7 +7,7 @@
   "targets": {
     ".NETStandard,Version=v2.1": {},
     ".NETStandard,Version=v2.1/": {
-      "TheWeavers.SCP966/1.0.1": {
+      "ProjectSCP.SCP966/1.0.1": {
         "dependencies": {
           "BepInEx.Analyzers": "1.0.8",
           "BepInEx.Core": "5.4.21",
@@ -15,11 +15,12 @@
           "Evaisa.LethalLib": "0.16.0",
           "UnityEngine.Modules": "2022.3.9",
           "Assembly-CSharp": "0.0.0.0",
+          "LethalBestiary": "0.0.0.0",
           "MoreShipUpgrades": "0.0.0.0",
           "Unity.Netcode.Runtime": "0.0.0.0"
         },
         "runtime": {
-          "TheWeavers.SCP966.dll": {}
+          "ProjectSCP.SCP966.dll": {}
         }
       },
       "BepInEx.Analyzers/1.0.8": {},
@@ -375,6 +376,14 @@
           }
         }
       },
+      "LethalBestiary/0.0.0.0": {
+        "runtime": {
+          "LethalBestiary.dll": {
+            "assemblyVersion": "0.0.0.0",
+            "fileVersion": "0.0.0.0"
+          }
+        }
+      },
       "MoreShipUpgrades/0.0.0.0": {
         "runtime": {
           "MoreShipUpgrades.dll": {
@@ -570,7 +579,7 @@
     }
   },
   "libraries": {
-    "TheWeavers.SCP966/1.0.1": {
+    "ProjectSCP.SCP966/1.0.1": {
       "type": "project",
       "serviceable": false,
       "sha512": ""
@@ -849,6 +858,11 @@
       "hashPath": "unityengine.modules.2022.3.9.nupkg.sha512"
     },
     "Assembly-CSharp/0.0.0.0": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "LethalBestiary/0.0.0.0": {
       "type": "reference",
       "serviceable": false,
       "sha512": ""

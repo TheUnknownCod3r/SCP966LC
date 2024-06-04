@@ -1,5 +1,3 @@
-C:\Users\Felix\Desktop\LethalCompany\Commissions\SCP966\LC-ExampleEnemy\Plugin\bin\Release\netstandard2.1\TheWeavers.SCP966.deps.json
-C:\Users\Felix\Desktop\LethalCompany\Commissions\SCP966\LC-ExampleEnemy\Plugin\bin\Release\netstandard2.1\TheWeavers.SCP966.dll
 C:\Users\Felix\Desktop\LethalCompany\Commissions\SCP966\LC-ExampleEnemy\Plugin\bin\Release\netstandard2.1\Assembly-CSharp.dll
 C:\Users\Felix\Desktop\LethalCompany\Commissions\SCP966\LC-ExampleEnemy\Plugin\bin\Release\netstandard2.1\MoreShipUpgrades.dll
 C:\Users\Felix\Desktop\LethalCompany\Commissions\SCP966\LC-ExampleEnemy\Plugin\bin\Release\netstandard2.1\Unity.Netcode.Runtime.dll
@@ -33,4 +31,7 @@ C:\Users\Felix\Desktop\LethalCompany\Commissions\SCP966\LC-ExampleEnemy\Plugin\o
 C:\Users\Felix\Desktop\LethalCompany\Commissions\SCP966\LC-ExampleEnemy\Plugin\obj\Release\netstandard2.1\SCP966.csproj.CoreCompileInputs.cache
 C:\Users\Felix\Desktop\LethalCompany\Commissions\SCP966\LC-ExampleEnemy\Plugin\obj\Release\netstandard2.1\SCP966.sourcelink.json
 C:\Users\Felix\Desktop\LethalCompany\Commissions\SCP966\LC-ExampleEnemy\Plugin\obj\Release\netstandard2.1\SCP966.csproj.Up2Date
-C:\Users\Felix\Desktop\LethalCompany\Commissions\SCP966\LC-ExampleEnemy\Plugin\obj\Release\netstandard2.1\TheWeavers.SCP966.dll
+C:\Users\Felix\Desktop\LethalCompany\Commissions\SCP966\LC-ExampleEnemy\Plugin\bin\Release\netstandard2.1\ProjectSCP.SCP966.deps.json
+C:\Users\Felix\Desktop\LethalCompany\Commissions\SCP966\LC-ExampleEnemy\Plugin\bin\Release\netstandard2.1\ProjectSCP.SCP966.dll
+C:\Users\Felix\Desktop\LethalCompany\Commissions\SCP966\LC-ExampleEnemy\Plugin\bin\Release\netstandard2.1\LethalBestiary.dll
+C:\Users\Felix\Desktop\LethalCompany\Commissions\SCP966\LC-ExampleEnemy\Plugin\obj\Release\netstandard2.1\ProjectSCP.SCP966.dll

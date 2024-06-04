@@ -2716,7 +2716,7 @@
     "version": "1.0.1",
     "restore": {
       "projectUniqueName": "C:\\Users\\Felix\\Desktop\\LethalCompany\\Commissions\\SCP966\\LC-ExampleEnemy\\Plugin\\SCP966.csproj",
-      "projectName": "TheWeavers.SCP966",
+      "projectName": "ProjectSCP.SCP966",
       "projectPath": "C:\\Users\\Felix\\Desktop\\LethalCompany\\Commissions\\SCP966\\LC-ExampleEnemy\\Plugin\\SCP966.csproj",
       "packagesPath": "C:\\Users\\Felix\\.nuget\\packages\\",
       "outputPath": "C:\\Users\\Felix\\Desktop\\LethalCompany\\Commissions\\SCP966\\LC-ExampleEnemy\\Plugin\\obj\\",
