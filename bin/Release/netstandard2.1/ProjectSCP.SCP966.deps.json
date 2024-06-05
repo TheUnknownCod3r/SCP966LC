@@ -7,7 +7,7 @@
   "targets": {
     ".NETStandard,Version=v2.1": {},
     ".NETStandard,Version=v2.1/": {
-      "ProjectSCP.SCP966/1.0.1": {
+      "ProjectSCP.SCP966/1.1.1": {
         "dependencies": {
           "BepInEx.Analyzers": "1.0.8",
           "BepInEx.Core": "5.4.21",
@@ -16,7 +16,6 @@
           "UnityEngine.Modules": "2022.3.9",
           "Assembly-CSharp": "0.0.0.0",
           "LethalBestiary": "0.0.0.0",
-          "MoreShipUpgrades": "0.0.0.0",
           "Unity.InputSystem": "1.7.0.0",
           "Unity.Netcode.Runtime": "0.0.0.0"
         },
@@ -385,14 +384,6 @@
           }
         }
       },
-      "MoreShipUpgrades/0.0.0.0": {
-        "runtime": {
-          "MoreShipUpgrades.dll": {
-            "assemblyVersion": "0.0.0.0",
-            "fileVersion": "0.0.0.0"
-          }
-        }
-      },
       "Unity.InputSystem/1.7.0.0": {
         "runtime": {
           "Unity.InputSystem.dll": {
@@ -580,7 +571,7 @@
     }
   },
   "libraries": {
-    "ProjectSCP.SCP966/1.0.1": {
+    "ProjectSCP.SCP966/1.1.1": {
       "type": "project",
       "serviceable": false,
       "sha512": ""
@@ -864,11 +855,6 @@
       "sha512": ""
     },
     "LethalBestiary/0.0.0.0": {
-      "type": "reference",
-      "serviceable": false,
-      "sha512": ""
-    },
-    "MoreShipUpgrades/0.0.0.0": {
       "type": "reference",
       "serviceable": false,
       "sha512": ""

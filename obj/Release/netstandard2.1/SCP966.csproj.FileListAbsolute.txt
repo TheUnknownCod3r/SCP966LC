@@ -1,5 +1,4 @@
 C:\Users\Felix\Desktop\LethalCompany\Commissions\SCP966\LC-ExampleEnemy\Plugin\bin\Release\netstandard2.1\Assembly-CSharp.dll
-C:\Users\Felix\Desktop\LethalCompany\Commissions\SCP966\LC-ExampleEnemy\Plugin\bin\Release\netstandard2.1\MoreShipUpgrades.dll
 C:\Users\Felix\Desktop\LethalCompany\Commissions\SCP966\LC-ExampleEnemy\Plugin\bin\Release\netstandard2.1\Unity.Netcode.Runtime.dll
 C:\Users\Felix\Desktop\LethalCompany\Commissions\SCP966\LC-ExampleEnemy\Plugin\bin\Release\netstandard2.1\Unity.Animation.Rigging.dll
 C:\Users\Felix\Desktop\LethalCompany\Commissions\SCP966\LC-ExampleEnemy\Plugin\bin\Release\netstandard2.1\UnityEngine.UI.dll

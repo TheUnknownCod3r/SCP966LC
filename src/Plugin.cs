@@ -64,7 +64,7 @@ namespace SCP966 {
             Enemies.RegisterEnemy(SCP966, SCP966CustomSpawn, Scp966CustomLevelRarities, SCP966TN, SCP966TK);
             // For using our rarity tables, we can use the following:
             // Enemies.RegisterEnemy(SCP966, ExampleEnemyLevelRarities, ExampleEnemyCustomLevelRarities, ExampleEnemyTN, ExampleEnemyTK);
-            //harmony.PatchAll(typeof(ScanPatch));
+            harmony.PatchAll(typeof(ScanPatch));
             Logger.LogInfo($"Plugin {PluginInfo.PLUGIN_GUID} is loaded!");
         }
 

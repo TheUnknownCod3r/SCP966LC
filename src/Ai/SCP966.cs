@@ -33,7 +33,7 @@ public class Scp966 : EnemyAI
 
     private bool weightModifiedLocal = false;
     private bool gettingScanned = false;
-
+    private bool canScan = true;
     private Coroutine killCoroutine;
     //Making sure that TargetPlayerVariable is synchronised
     [NonSerialized]
@@ -200,8 +200,8 @@ public class Scp966 : EnemyAI
                     Vector3.Distance(
                         transform.position, 
                         Scp966TargetPlayer.transform.position
-                        ) < 1f && 
-                    attackCooldown<=0.3f
+                        ) < 1.2f && 
+                    attackCooldown<=0.27f
                     )
                 {
                     DoAnimationClientRpc("Attack");
@@ -326,6 +326,9 @@ public class Scp966 : EnemyAI
 
     public void StartScanCoroutine()
     {
+        if (!canScan)
+            return;
+        canScan = false; 
         gettingScanned = true;
         StartCoroutine(ScanCoroutine());
     }
@@ -333,9 +336,11 @@ public class Scp966 : EnemyAI
     IEnumerator ScanCoroutine()
     {
         EnableMesh();
-        yield return new WaitForSeconds(0.1f);
+        yield return new WaitForSeconds(0.2f);
         DisableMesh();
         gettingScanned = false;
+        yield return new WaitForSeconds(1.3f);
+        canScan = true;
     }
     /// <summary>
     /// When he gets hit
