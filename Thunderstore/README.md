@@ -9,7 +9,7 @@ LateGameUpgrade
 It will go around until it detects a player. If the player's stamina is above 10, it will go into the Tiering Phase. If the player's stamina is under 10, it will go into the Chasing Phase.
 
 ### Tiering Phase
-It will follow the player around, using a shrike every 10 seconds that will drain about 20% of the player's stamina. When the player is below 10% stamina, it will go into the Chasing Phase.
+It will follow the player around, adding to their weight 52 lbs. if the players stamina reaches under 20%, SCP966 will go to the chasing phase
 
 ### Chasing Phase
 When in the Chasing Phase, it will hunt down the player until they are dead or leave the building. Then, it will go back into the Roaming Phase.

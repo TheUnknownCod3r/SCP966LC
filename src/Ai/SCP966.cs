@@ -32,6 +32,7 @@ public class Scp966 : EnemyAI
     private bool justStopedMoving = true;
 
     private bool weightModifiedLocal = false;
+    private bool gettingScanned = false;
 
     private Coroutine killCoroutine;
     //Making sure that TargetPlayerVariable is synchronised
@@ -97,7 +98,7 @@ public class Scp966 : EnemyAI
                 DoAnimationClientRpc("Walking",true);
                 agent.autoBraking = true;
                 agent.speed = 5f;
-                agent.stoppingDistance = 0f;
+                agent.stoppingDistance = 1f;
                 if (CheckLineOfSightForPlayer(45f,60, 3)){
                     StopSearch(currentSearch);
                     Scp966TargetPlayer = CheckLineOfSightForPlayer();
@@ -271,6 +272,8 @@ public class Scp966 : EnemyAI
     /// </summary>
     private void CheckIfLocalPlayerHasNightVision()
     {
+        if (gettingScanned)
+            return;
         if (foundNightVision == null)
         {
             foundNightVision = GameObject.Find("nightVision(Clone)");
@@ -319,6 +322,20 @@ public class Scp966 : EnemyAI
         {
             DisableMesh();
         }
+    }
+
+    public void StartScanCoroutine()
+    {
+        gettingScanned = true;
+        StartCoroutine(ScanCoroutine());
+    }
+
+    IEnumerator ScanCoroutine()
+    {
+        EnableMesh();
+        yield return new WaitForSeconds(0.1f);
+        DisableMesh();
+        gettingScanned = false;
     }
     /// <summary>
     /// When he gets hit
@@ -459,28 +476,32 @@ public class Scp966 : EnemyAI
         {
             if (weight == 0f)
             {
-                if (weightModifiedLocal)
+                PlayerControllerB player = RoundManager.Instance.playersManager.localPlayerController;
+                float totalWeight = 0;
+                foreach (var item in player.ItemSlots)
                 {
-                    PlayerControllerB player = RoundManager.Instance.playersManager.localPlayerController;
-                    float totalWeight = 0;
-                    foreach (var item in player.ItemSlots)
-                    {
-                        if (item == null) continue;
-                        if (item.gameObject.GetComponent<GrabbableObject>() == null) continue;
-                        totalWeight+= item.gameObject.GetComponent<GrabbableObject>().itemProperties.weight;
-                        
-                    }
-
-                    player.carryWeight = 1 + totalWeight;
+                    if (item == null) continue;
+                    if (item.gameObject.GetComponent<GrabbableObject>() == null) continue;
+                    totalWeight+= item.gameObject.GetComponent<GrabbableObject>().itemProperties.weight;
+                    
                 }
-                weightModifiedLocal = false;
+
+                player.carryWeight = 1 + totalWeight;
+
             }
             else if(weight ==1f)
             {
-                if(!weightModifiedLocal)
-                    RoundManager.Instance.playersManager.localPlayerController.carryWeight += 0.5f;
+                PlayerControllerB player = RoundManager.Instance.playersManager.localPlayerController;
+                float totalWeight = 0;
+                foreach (var item in player.ItemSlots)
+                {
+                    if (item == null) continue;
+                    if (item.gameObject.GetComponent<GrabbableObject>() == null) continue;
+                    totalWeight+= item.gameObject.GetComponent<GrabbableObject>().itemProperties.weight;
                 
-                weightModifiedLocal = true;
+                }
+
+                player.carryWeight = 1 + totalWeight + 0.5f;
             }
         }
     }

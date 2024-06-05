@@ -7,7 +7,7 @@
   "targets": {
     ".NETStandard,Version=v2.1": {},
     ".NETStandard,Version=v2.1/": {
-      "ProjectSCP.SCP966/1.0.0": {
+      "ProjectSCP.SCP966/1.0.1": {
         "dependencies": {
           "BepInEx.Analyzers": "1.0.8",
           "BepInEx.Core": "5.4.21",
@@ -17,6 +17,7 @@
           "Assembly-CSharp": "0.0.0.0",
           "LethalBestiary": "0.0.0.0",
           "MoreShipUpgrades": "0.0.0.0",
+          "Unity.InputSystem": "1.7.0.0",
           "Unity.Netcode.Runtime": "0.0.0.0"
         },
         "runtime": {
@@ -392,6 +393,14 @@
           }
         }
       },
+      "Unity.InputSystem/1.7.0.0": {
+        "runtime": {
+          "Unity.InputSystem.dll": {
+            "assemblyVersion": "1.7.0.0",
+            "fileVersion": "1.7.0.0"
+          }
+        }
+      },
       "Unity.Netcode.Runtime/0.0.0.0": {
         "runtime": {
           "Unity.Netcode.Runtime.dll": {
@@ -429,14 +438,6 @@
           "Facepunch.Steamworks.Win64.dll": {
             "assemblyVersion": "1.0.0.0",
             "fileVersion": "1.0.0.0"
-          }
-        }
-      },
-      "Unity.InputSystem/1.7.0.0": {
-        "runtime": {
-          "Unity.InputSystem.dll": {
-            "assemblyVersion": "1.7.0.0",
-            "fileVersion": "1.7.0.0"
           }
         }
       },
@@ -579,7 +580,7 @@
     }
   },
   "libraries": {
-    "ProjectSCP.SCP966/1.0.0": {
+    "ProjectSCP.SCP966/1.0.1": {
       "type": "project",
       "serviceable": false,
       "sha512": ""
@@ -872,6 +873,11 @@
       "serviceable": false,
       "sha512": ""
     },
+    "Unity.InputSystem/1.7.0.0": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
+    },
     "Unity.Netcode.Runtime/0.0.0.0": {
       "type": "reference",
       "serviceable": false,
@@ -893,11 +899,6 @@
       "sha512": ""
     },
     "Facepunch.Steamworks.Win64/1.0.0.0": {
-      "type": "reference",
-      "serviceable": false,
-      "sha512": ""
-    },
-    "Unity.InputSystem/1.7.0.0": {
       "type": "reference",
       "serviceable": false,
       "sha512": ""

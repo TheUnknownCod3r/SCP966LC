@@ -5,6 +5,7 @@ using BepInEx;
 using LethalBestiary.Modules;
 using BepInEx.Logging;
 using System.IO;
+using HarmonyLib;
 
 namespace SCP966 {
     [BepInPlugin(PluginInfo.PLUGIN_GUID, PluginInfo.PLUGIN_NAME, PluginInfo.PLUGIN_VERSION)]
@@ -12,7 +13,7 @@ namespace SCP966 {
     public class Plugin : BaseUnityPlugin {
         internal static new ManualLogSource Logger = null!;
         public static AssetBundle? ModAssets;
-
+        private readonly Harmony harmony = new Harmony(PluginInfo.PLUGIN_GUID);
         private void Awake() {
             Logger = base.Logger;
 
@@ -63,7 +64,7 @@ namespace SCP966 {
             Enemies.RegisterEnemy(SCP966, SCP966CustomSpawn, Scp966CustomLevelRarities, SCP966TN, SCP966TK);
             // For using our rarity tables, we can use the following:
             // Enemies.RegisterEnemy(SCP966, ExampleEnemyLevelRarities, ExampleEnemyCustomLevelRarities, ExampleEnemyTN, ExampleEnemyTK);
-            
+            //harmony.PatchAll(typeof(ScanPatch));
             Logger.LogInfo($"Plugin {PluginInfo.PLUGIN_GUID} is loaded!");
         }
 

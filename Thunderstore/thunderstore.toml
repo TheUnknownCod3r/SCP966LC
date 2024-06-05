@@ -28,10 +28,10 @@ target = "plugins/Scp966/"
 
 [[build.copy]]
 source = "./PictureThunderstorePage/Chilling.png"
-target = "PictureThunderstorePage"
+target = "PictureThunderstorePage/"
 [[build.copy]]
 source = "./PictureThunderstorePage/CreepyWalk.png"
-target = "PictureThunderstorePage"
+target = "PictureThunderstorePage/"
 
 [[build.copy]]
 source = "./CHANGELOG.md"

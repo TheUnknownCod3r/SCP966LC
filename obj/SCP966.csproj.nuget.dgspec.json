@@ -5,7 +5,7 @@
   },
   "projects": {
     "C:\\Users\\Felix\\Desktop\\LethalCompany\\Commissions\\SCP966\\LC-ExampleEnemy\\Plugin\\SCP966.csproj": {
-      "version": "1.0.0",
+      "version": "1.0.1",
       "restore": {
         "projectUniqueName": "C:\\Users\\Felix\\Desktop\\LethalCompany\\Commissions\\SCP966\\LC-ExampleEnemy\\Plugin\\SCP966.csproj",
         "projectName": "ProjectSCP.SCP966",
@@ -34,6 +34,11 @@
           "warnAsError": [
             "NU1605"
           ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
         }
       },
       "frameworks": {
