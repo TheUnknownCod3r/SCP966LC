@@ -1,5 +1,6 @@
 # SCP966-SleepKiller
-This mod adds SCP 966 as a monster in Lethal Company. To see it, the player will have to buy the night vision goggles from [LateGameUpgrade](https://thunderstore.io/c/lethal-company/p/malco/Lategame_Upgrades/). The mod will work without LateGameUpgrade, but you will never be able to see SCP 966.
+This mod adds SCP 966 as a monster in Lethal Company. To see it, the player will have to buy the night vision goggles from [LateGameUpgrade](https://thunderstore.io/c/lethal-company/p/malco/Lategame_Upgrades/). The mod will work without LateGameUpgrade.
+[NEW] YOU CAN NOW SEE THE MONSTER BRIEFLY WHENEVER YOU SCAN
 
 <details>
   <summary>Here are its phases and how it works in game if you wanna spoil yourself (spoilers aside tho, the night vision goggles from Lategamecompany might help with SCP 966)</summary>
@@ -16,6 +17,11 @@ When in the Chasing Phase, it will hunt down the player until they are dead or l
 ![Chilling.png](PictureThunderstorePage%2FChilling.png)
 ![CreepyWalk.png](PictureThunderstorePage%2FCreepyWalk.png)
 </details>
+
+
+## About Project SCP :
+Project Scp is in constant development and need help to grown into one of the major figure of Lethal Company Development. 
+Join our [discord](https://discord.gg/QMbbEJKUfys) server to see updates and give your touch on our mission to make Lethal Company the second SCP foundation
 
 ### Credits :
     JoeJoe

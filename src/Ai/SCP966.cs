@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Security.Cryptography;
 using GameNetcodeStuff;
+using SCP966.SCP966Manager;
 using Unity.Netcode;
 using UnityEngine;
 
@@ -70,6 +71,16 @@ public class Scp966 : EnemyAI
         {
             passiveSound = StartCoroutine(IdlePlay());
         }
+        
+        
+        // Ensure a manager exists or create one if it doesn't
+        if (Scp966Manager.Instance == null)
+        {
+            GameObject managerObject = new GameObject("Scp966Manager");
+            managerObject.AddComponent<Scp966Manager>();
+        }
+
+        Scp966Manager.Instance.RegisterScp966Instance(this);
     }
     /// <summary>
     /// No access to UpdateMethod, so we will use the LateUpdate for a similar result

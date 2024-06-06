@@ -14,3 +14,6 @@
 - Adjusted the NavMesh for it to work better ( Made it smaller )
 - Scanning will make you able to see the monster for 0.2 seconds
 - Adjusted description of Thunderstore Page
+## 1.1.2
+- Made the scanning more memory and thread efficient for less lag!
+- Created a SCP966 manager which will handle all SCP966 instance in the scene
