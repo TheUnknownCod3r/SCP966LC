@@ -10,6 +10,10 @@ internal class ScanPatch
     [HarmonyPostfix]
     private static void PostFix(InputAction.CallbackContext context)
     {
-        Scp966Manager.Instance.StartScanOnAllInstances();
+        if (Scp966Manager.Instance != null)
+        {
+            Scp966Manager.Instance.StartScanOnAllInstances();
+        }
+
     }
 }

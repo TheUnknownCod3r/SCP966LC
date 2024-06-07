@@ -17,3 +17,5 @@
 ## 1.1.2
 - Made the scanning more memory and thread efficient for less lag!
 - Created a SCP966 manager which will handle all SCP966 instance in the scene
+## 1.1.3
+- Fixed a minor problem, where scanning would display an error message if SCP966 was not present in the scene
