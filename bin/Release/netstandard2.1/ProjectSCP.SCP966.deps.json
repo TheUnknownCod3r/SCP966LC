@@ -7,7 +7,7 @@
   "targets": {
     ".NETStandard,Version=v2.1": {},
     ".NETStandard,Version=v2.1/": {
-      "ProjectSCP.SCP966/1.1.3": {
+      "ProjectSCP.SCP966/1.1.4": {
         "dependencies": {
           "BepInEx.Analyzers": "1.0.8",
           "BepInEx.Core": "5.4.21",
@@ -16,6 +16,7 @@
           "UnityEngine.Modules": "2022.3.9",
           "Assembly-CSharp": "0.0.0.0",
           "LethalBestiary": "0.0.0.0",
+          "Unity.Collections": "0.0.0.0",
           "Unity.InputSystem": "1.7.0.0",
           "Unity.Netcode.Runtime": "0.0.0.0"
         },
@@ -384,6 +385,14 @@
           }
         }
       },
+      "Unity.Collections/0.0.0.0": {
+        "runtime": {
+          "Unity.Collections.dll": {
+            "assemblyVersion": "0.0.0.0",
+            "fileVersion": "0.0.0.0"
+          }
+        }
+      },
       "Unity.InputSystem/1.7.0.0": {
         "runtime": {
           "Unity.InputSystem.dll": {
@@ -488,14 +497,6 @@
           }
         }
       },
-      "Unity.Collections/0.0.0.0": {
-        "runtime": {
-          "Unity.Collections.dll": {
-            "assemblyVersion": "0.0.0.0",
-            "fileVersion": "0.0.0.0"
-          }
-        }
-      },
       "ClientNetworkTransform/0.0.0.0": {
         "runtime": {
           "ClientNetworkTransform.dll": {
@@ -517,6 +518,14 @@
           "Unity.Mathematics.dll": {
             "assemblyVersion": "1.0.0.0",
             "fileVersion": "1.0.0.0"
+          }
+        }
+      },
+      "Unity.Collections.LowLevel.ILSupport/0.0.0.0": {
+        "runtime": {
+          "Unity.Collections.LowLevel.ILSupport.dll": {
+            "assemblyVersion": "0.0.0.0",
+            "fileVersion": "0.0.0.0"
           }
         }
       },
@@ -544,14 +553,6 @@
           }
         }
       },
-      "Unity.Collections.LowLevel.ILSupport/0.0.0.0": {
-        "runtime": {
-          "Unity.Collections.LowLevel.ILSupport.dll": {
-            "assemblyVersion": "0.0.0.0",
-            "fileVersion": "0.0.0.0"
-          }
-        }
-      },
       "Unity.Burst.Unsafe/4.0.5.0": {
         "runtime": {
           "Unity.Burst.Unsafe.dll": {
@@ -571,7 +572,7 @@
     }
   },
   "libraries": {
-    "ProjectSCP.SCP966/1.1.3": {
+    "ProjectSCP.SCP966/1.1.4": {
       "type": "project",
       "serviceable": false,
       "sha512": ""
@@ -859,6 +860,11 @@
       "serviceable": false,
       "sha512": ""
     },
+    "Unity.Collections/0.0.0.0": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
+    },
     "Unity.InputSystem/1.7.0.0": {
       "type": "reference",
       "serviceable": false,
@@ -924,11 +930,6 @@
       "serviceable": false,
       "sha512": ""
     },
-    "Unity.Collections/0.0.0.0": {
-      "type": "reference",
-      "serviceable": false,
-      "sha512": ""
-    },
     "ClientNetworkTransform/0.0.0.0": {
       "type": "reference",
       "serviceable": false,
@@ -944,6 +945,11 @@
       "serviceable": false,
       "sha512": ""
     },
+    "Unity.Collections.LowLevel.ILSupport/0.0.0.0": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
+    },
     "Unity.VisualEffectGraph.Runtime/0.0.0.0": {
       "type": "reference",
       "serviceable": false,
@@ -955,11 +961,6 @@
       "sha512": ""
     },
     "Unity.RenderPipelines.HighDefinition.Config.Runtime/0.0.0.0": {
-      "type": "reference",
-      "serviceable": false,
-      "sha512": ""
-    },
-    "Unity.Collections.LowLevel.ILSupport/0.0.0.0": {
       "type": "reference",
       "serviceable": false,
       "sha512": ""

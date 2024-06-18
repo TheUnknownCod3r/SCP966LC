@@ -6,6 +6,7 @@ using LethalBestiary.Modules;
 using BepInEx.Logging;
 using System.IO;
 using HarmonyLib;
+using SCP1507.Configurations;
 
 namespace SCP966 {
     [BepInPlugin(PluginInfo.PLUGIN_GUID, PluginInfo.PLUGIN_NAME, PluginInfo.PLUGIN_VERSION)]
@@ -14,9 +15,10 @@ namespace SCP966 {
         internal static new ManualLogSource Logger = null!;
         public static AssetBundle? ModAssets;
         private readonly Harmony harmony = new Harmony(PluginInfo.PLUGIN_GUID);
+        public static new Config Config { get; internal set; }
         private void Awake() {
             Logger = base.Logger;
-
+            Config = new(base.Config);
             // This should be ran before Network Prefabs are registered.
             InitializeNetworkBehaviours();
 
@@ -47,7 +49,7 @@ namespace SCP966 {
                 {Levels.LevelTypes.RendLevel, 20},
                 {Levels.LevelTypes.DineLevel, 20},
                 {Levels.LevelTypes.TitanLevel, 30},*/
-                {Levels.LevelTypes.All, 20},     // Affects unset values, with lowest priority (gets overridden by Levels.LevelTypes.Modded)
+                {Levels.LevelTypes.All, Config.RARITY.Value},     // Affects unset values, with lowest priority (gets overridden by Levels.LevelTypes.Modded)
                 {Levels.LevelTypes.Modded, 20},     // Affects values for modded moons that weren't specified
             };
 
@@ -64,6 +66,7 @@ namespace SCP966 {
             Enemies.RegisterEnemy(SCP966, SCP966CustomSpawn, Scp966CustomLevelRarities, SCP966TN, SCP966TK);
             // For using our rarity tables, we can use the following:
             // Enemies.RegisterEnemy(SCP966, ExampleEnemyLevelRarities, ExampleEnemyCustomLevelRarities, ExampleEnemyTN, ExampleEnemyTK);
+            harmony.PatchAll(typeof(ConfigurationsPatch));
             harmony.PatchAll(typeof(ScanPatch));
             Logger.LogInfo($"Plugin {PluginInfo.PLUGIN_GUID} is loaded!");
         }

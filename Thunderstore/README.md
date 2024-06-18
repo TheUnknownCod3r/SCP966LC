@@ -14,8 +14,6 @@ It will follow the player around, adding to their weight 52 lbs. if the players 
 
 ### Chasing Phase
 When in the Chasing Phase, it will hunt down the player until they are dead or leave the building. Then, it will go back into the Roaming Phase.
-![Chilling.png](PictureThunderstorePage%2FChilling.png)
-![CreepyWalk.png](PictureThunderstorePage%2FCreepyWalk.png)
 </details>
 
 
@@ -24,7 +22,7 @@ Project Scp is in constant development and need help to grown into one of the ma
 Join our [discord](https://discord.gg/QMbbEJKUfys) server to see updates and give your touch on our mission to make Lethal Company the second SCP foundation
 
 ### Credits :
-    JoeJoe
+    JoeJoe 
     Xilef992 ( TheWeavers)
 <details>
 <summary>

@@ -347,10 +347,10 @@ public class Scp966 : EnemyAI
     IEnumerator ScanCoroutine()
     {
         EnableMesh();
-        yield return new WaitForSeconds(0.2f);
+        yield return new WaitForSeconds(0f + Plugin.Config.TIME_YOU_SEE_MONSTER.Value);
         DisableMesh();
         gettingScanned = false;
-        yield return new WaitForSeconds(1.3f);
+        yield return new WaitForSeconds(1.2f - Plugin.Config.TIME_YOU_SEE_MONSTER.Value );
         canScan = true;
     }
     /// <summary>
@@ -550,5 +550,11 @@ public class Scp966 : EnemyAI
     private void MonsterLogger(String x, bool pleaseReport = false)
     {
         Debug.Log($"[SCP966SleepKiller][SCP966 - AI CLASS][{(pleaseReport? "This Error should be reported with the context of the error":"NO NEED REPORT")}] :: " + x);
+    }
+
+    public override void OnDestroy()
+    {
+        base.OnDestroy();
+        SCP966Manager.Scp966Manager.Instance.UnregisterScp966Instance(this);
     }
 }

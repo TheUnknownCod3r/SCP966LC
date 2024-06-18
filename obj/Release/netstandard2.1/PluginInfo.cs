@@ -4,6 +4,6 @@ namespace SCP966
     {
         public const string PLUGIN_GUID = "ProjectSCP.SCP966";
         public const string PLUGIN_NAME = "SCP966";
-        public const string PLUGIN_VERSION = "1.1.3";
+        public const string PLUGIN_VERSION = "1.1.4";
     }
 }
