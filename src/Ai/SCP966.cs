@@ -57,6 +57,9 @@ public class Scp966 : EnemyAI
             }
         }
     }
+    
+    private bool noRegen;
+    private float previousStamina;
 
     [NonSerialized] public bool isVisibleForLocalPlayer;
     private PlayerControllerB localPlayer;
@@ -97,6 +100,22 @@ public class Scp966 : EnemyAI
             lookAt.position = defaultLookAt.position;
         }
         attackCooldown -= Time.deltaTime;
+        
+        if (noRegen)
+        {
+            if (localPlayer.sprintMeter > previousStamina)
+            {
+                localPlayer.sprintMeter = previousStamina;
+            }
+            else
+            {
+                previousStamina = localPlayer.sprintMeter;
+            }
+        }
+        else
+        {
+            previousStamina = localPlayer.sprintMeter;
+        }
     }
     /// <summary>
     /// Called by base class, decides current behaviour of AI
@@ -110,9 +129,10 @@ public class Scp966 : EnemyAI
                 agent.autoBraking = true;
                 agent.speed = 5f;
                 agent.stoppingDistance = 1f;
-                if (CheckLineOfSightForPlayer(45f,60, 3)){
+                PlayerControllerB playerCheck = CheckLineOfSightForPlayer(45f, 60, 3);
+                if (playerCheck!=null){
                     StopSearch(currentSearch);
-                    Scp966TargetPlayer = CheckLineOfSightForPlayer();
+                    Scp966TargetPlayer = playerCheck;
                     SwitchToBehaviourClientRpc((int)State.Tiering);
                 }
                 break;
@@ -199,8 +219,6 @@ public class Scp966 : EnemyAI
                     StartSearch(transform.position);
                     SwitchToBehaviourClientRpc((int)State.Searching);
                     SetWeightPlayerClientRpc(Scp966TargetPlayer.playerClientId,0f);
-                        
-                    Scp966TargetPlayer = null;
                     break;
                 }
                 SetDestinationToPosition(Scp966TargetPlayer.transform.position);
@@ -492,34 +510,15 @@ public class Scp966 : EnemyAI
         {
             if (weight == 0f)
             {
-                PlayerControllerB player = RoundManager.Instance.playersManager.localPlayerController;
-                float totalWeight = 0;
-                foreach (var item in player.ItemSlots)
-                {
-                    if (item == null) continue;
-                    if (item.gameObject.GetComponent<GrabbableObject>() == null) continue;
-                    totalWeight+= item.gameObject.GetComponent<GrabbableObject>().itemProperties.weight;
-                    
-                }
-
-                player.carryWeight = 1 + totalWeight;
-
+                noRegen = false;
             }
             else if(weight ==1f)
             {
-                PlayerControllerB player = RoundManager.Instance.playersManager.localPlayerController;
-                float totalWeight = 0;
-                foreach (var item in player.ItemSlots)
-                {
-                    if (item == null) continue;
-                    if (item.gameObject.GetComponent<GrabbableObject>() == null) continue;
-                    totalWeight+= item.gameObject.GetComponent<GrabbableObject>().itemProperties.weight;
-                
-                }
-
-                player.carryWeight = 1 + totalWeight + 0.5f;
+                noRegen = true;
             }
         }
+        
+        
     }
     /// <summary>
     /// Send to the client to check if their stamina is low! They will respond with SendIfTargetHasLowStamserverRpc if true and they are the target player
@@ -549,7 +548,7 @@ public class Scp966 : EnemyAI
 
     private void MonsterLogger(String x, bool pleaseReport = false)
     {
-        Debug.Log($"[SCP966SleepKiller][SCP966 - AI CLASS][{(pleaseReport? "This Error should be reported with the context of the error":"NO NEED REPORT")}] :: " + x);
+        Plugin.Logger.LogInfo($"[SCP966SleepKiller][SCP966 - AI CLASS][{(pleaseReport? "This Error should be reported with the context of the error":"NO NEED REPORT")}] :: " + x);
     }
 
     public override void OnDestroy()

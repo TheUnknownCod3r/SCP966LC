@@ -27,3 +27,8 @@
 - Added configurations!
 - CONFIG : Time you see the monster --> The amount of time the monster is visible on scan
 - CONFIG : Rarity --> The rarity of SCp 966 on all the moons
+## 1.1.5
+- Fixed null reference exception regarding scp 966 target player
+- REMOVED weight mechanic. it was buggy as hell
+- ADDED no stamina regen mechanic!
+- Fixed some small bugs here and there
