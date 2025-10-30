@@ -1,27 +1,36 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Felix\\Desktop\\LethalCompany\\Commissions\\SCP966\\LC-ExampleEnemy\\Plugin\\SCP966.csproj": {}
+    "C:\\Users\\mrfaw\\Documents\\GitHub\\SCP966LC\\SCP966.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Felix\\Desktop\\LethalCompany\\Commissions\\SCP966\\LC-ExampleEnemy\\Plugin\\SCP966.csproj": {
-      "version": "1.1.5",
+    "C:\\Users\\mrfaw\\Documents\\GitHub\\SCP966LC\\SCP966.csproj": {
+      "version": "1.1.6",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Felix\\Desktop\\LethalCompany\\Commissions\\SCP966\\LC-ExampleEnemy\\Plugin\\SCP966.csproj",
+        "projectUniqueName": "C:\\Users\\mrfaw\\Documents\\GitHub\\SCP966LC\\SCP966.csproj",
         "projectName": "ProjectSCP.SCP966",
-        "projectPath": "C:\\Users\\Felix\\Desktop\\LethalCompany\\Commissions\\SCP966\\LC-ExampleEnemy\\Plugin\\SCP966.csproj",
-        "packagesPath": "C:\\Users\\Felix\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Felix\\Desktop\\LethalCompany\\Commissions\\SCP966\\LC-ExampleEnemy\\Plugin\\obj\\",
+        "projectPath": "C:\\Users\\mrfaw\\Documents\\GitHub\\SCP966LC\\SCP966.csproj",
+        "packagesPath": "C:\\Users\\mrfaw\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\mrfaw\\Documents\\GitHub\\SCP966LC\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
         "configFilePaths": [
-          "C:\\Users\\Felix\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "C:\\Users\\mrfaw\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "netstandard2.1"
         ],
         "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {},
           "https://api.nuget.org/v3/index.json": {},
+          "https://nuget.bepinex.dev/v3/index.json": {},
           "https://nuget.bepinex.dev/v3/index.json": {}
         },
         "frameworks": {
@@ -60,12 +69,16 @@
             },
             "Evaisa.LethalLib": {
               "target": "Package",
-              "version": "[0.*, )"
+              "version": "[1.1.1, )"
+            },
+            "LethalCompany.GameLibs.Steam": {
+              "target": "Package",
+              "version": "[73.0.0-ngd.0, )"
             },
             "UnityEngine.Modules": {
               "include": "Compile",
               "target": "Package",
-              "version": "[2022.3.9, )"
+              "version": "[2022.3.62, )"
             }
           },
           "imports": [
@@ -84,7 +97,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.203\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.410\\RuntimeIdentifierGraph.json"
         }
       }
     }

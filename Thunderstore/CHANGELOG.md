@@ -32,3 +32,6 @@
 - REMOVED weight mechanic. it was buggy as hell
 - ADDED no stamina regen mechanic!
 - Fixed some small bugs here and there
+
+## 1.1.6
+- Updated to v73

@@ -10,7 +10,7 @@ using SCP1507.Configurations;
 
 namespace SCP966 {
     [BepInPlugin(PluginInfo.PLUGIN_GUID, PluginInfo.PLUGIN_NAME, PluginInfo.PLUGIN_VERSION)]
-    [BepInDependency(LethalBestiary.Plugin.ModGUID)] 
+    [BepInDependency(LethalBestiary.Plugin.ModGUID)]
     public class Plugin : BaseUnityPlugin {
         internal static new ManualLogSource Logger = null!;
         public static AssetBundle? ModAssets;

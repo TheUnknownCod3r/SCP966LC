@@ -1,0 +1,12 @@
+{
+  "namespace": "ProjectSCP",
+  "name": "SCP966",
+  "description": "Adds Scp966 as a monster in Lethal company",
+  "version_number": "1.1.6",
+  "dependencies": [
+    "BepInEx-BepInExPack-5.4.2100",
+    "TheWeavers-LethalBestiary-1.2.1"
+  ],
+  "website_url": "https://github.com/FelixAllard/SCP966LC",
+  "FullName": "ProjectSCP-SCP966"
+}

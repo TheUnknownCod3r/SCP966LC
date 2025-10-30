@@ -7,15 +7,14 @@
   "targets": {
     ".NETStandard,Version=v2.1": {},
     ".NETStandard,Version=v2.1/": {
-      "ProjectSCP.SCP966/1.1.6": {
+      "ProjectSCP.SCP966/1.1.5": {
         "dependencies": {
           "BepInEx.Analyzers": "1.0.8",
           "BepInEx.Core": "5.4.21",
           "BepInEx.PluginInfoProps": "1.1.0",
           "Evaisa.LethalLib": "1.1.1",
           "LethalCompany.GameLibs.Steam": "73.0.0-ngd.0",
-          "UnityEngine.Modules": "2022.3.62",
-          "LethalBestiary": "0.0.0.0"
+          "UnityEngine.Modules": "2022.3.62"
         },
         "runtime": {
           "ProjectSCP.SCP966.dll": {}
@@ -379,19 +378,11 @@
           "System.Runtime": "4.3.0"
         }
       },
-      "UnityEngine.Modules/2022.3.62": {},
-      "LethalBestiary/0.0.0.0": {
-        "runtime": {
-          "LethalBestiary.dll": {
-            "assemblyVersion": "0.0.0.0",
-            "fileVersion": "0.0.0.0"
-          }
-        }
-      }
+      "UnityEngine.Modules/2022.3.62": {}
     }
   },
   "libraries": {
-    "ProjectSCP.SCP966/1.1.6": {
+    "ProjectSCP.SCP966/1.1.5": {
       "type": "project",
       "serviceable": false,
       "sha512": ""
@@ -682,11 +673,6 @@
       "sha512": "sha512-zpu5dELUCFt7Rvvzp50iTrfVusJg+2gmlcaytGEoHYuIP+AOv57X272czjp+sA8N1onPo/IiHFnOEFtT9rLJBA==",
       "path": "unityengine.modules/2022.3.62",
       "hashPath": "unityengine.modules.2022.3.62.nupkg.sha512"
-    },
-    "LethalBestiary/0.0.0.0": {
-      "type": "reference",
-      "serviceable": false,
-      "sha512": ""
     }
   }
 }

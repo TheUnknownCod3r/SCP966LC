@@ -1,0 +1,9 @@
+C:\Users\mrfaw\Documents\GitHub\SCP966LC\bin\Debug\netstandard2.1\ProjectSCP.SCP966.deps.json
+C:\Users\mrfaw\Documents\GitHub\SCP966LC\bin\Debug\netstandard2.1\ProjectSCP.SCP966.dll
+C:\Users\mrfaw\Documents\GitHub\SCP966LC\obj\Debug\netstandard2.1\SCP966.csproj.AssemblyReference.cache
+C:\Users\mrfaw\Documents\GitHub\SCP966LC\obj\Debug\netstandard2.1\PluginInfo.cs
+C:\Users\mrfaw\Documents\GitHub\SCP966LC\obj\Debug\netstandard2.1\SCP966.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\mrfaw\Documents\GitHub\SCP966LC\obj\Debug\netstandard2.1\SCP966.AssemblyInfoInputs.cache
+C:\Users\mrfaw\Documents\GitHub\SCP966LC\obj\Debug\netstandard2.1\SCP966.AssemblyInfo.cs
+C:\Users\mrfaw\Documents\GitHub\SCP966LC\obj\Debug\netstandard2.1\SCP966.csproj.CoreCompileInputs.cache
+C:\Users\mrfaw\Documents\GitHub\SCP966LC\obj\Debug\netstandard2.1\ProjectSCP.SCP966.dll
