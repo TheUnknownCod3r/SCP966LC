@@ -448,17 +448,23 @@ public class Scp966 : EnemyAI
         }
         attackCooldown = attackCooldownBeheader;
     }
-
     IEnumerator killPlayer(PlayerControllerB playerControllerB)
     {
         yield return new WaitForSeconds(0.3f);
         StopCoroutine(killCoroutine);
-        playerControllerB.DamagePlayer(currentDamage);
-        if (playerControllerB.health <= currentDamage)
+
+        bool lethalHit = currentDamage >= playerControllerB.health;
+
+        if (lethalHit)//fix dead body collisions
         {
-            SetWeightPlayerClientRpc(Scp966TargetPlayer.playerClientId,0f);
+            playerControllerB.KillPlayer(Vector3.up, true, CauseOfDeath.Mauling, 1);
+
+            SetWeightPlayerClientRpc(playerControllerB.playerClientId, 0f);
         }
-        
+        else
+        {
+            playerControllerB.DamagePlayer(currentDamage);
+        }
     }
     /// <summary>
     /// Called by us
